@@ -1,0 +1,84 @@
+## Configuration de la liste sympa-l
+## Cree le Mercredi 31 Mars 99
+#send editorkey
+
+subject [% subject %]
+
+status [% status %]
+
+visibility noconceal
+
+# users cannot subscribe/unsubscribe, list owner can subscribe user
+subscribe owner
+unsubscribe closed
+invite owner # note here!!
+add owner
+del closed
+
+available_user_options
+reception	mail,txt,html
+
+reply_to_header
+value sender
+apply respect
+
+[% FOREACH o = owner -%]
+owner
+  email [% o.email %]
+  profile privileged
+  [% IF o.gecos -%]
+  gecos [% o.gecos %]
+  [% END -%]
+
+[% END -%]
+
+[% IF owner_include -%]
+owner_include
+  source [% owner_include.source %]
+  profile normal
+
+[% END -%]
+
+
+[% IF sql %]
+include_sql_query
+  db_type [% sql.type %]
+  host [% sql.host %]
+  user [% sql.user %]
+  passwd [% sql.pwd %]
+  db_name [% sql.name %]
+  sql_query [% sql.query %]
+
+[% END %]
+
+
+send course_announcement_list
+
+topics course_announcement_list
+
+web_archive
+access private
+# quota 10000 # quota in KB
+
+archive
+access owner
+period month
+
+digest 1,4 13:26
+
+review owner
+
+shared_doc
+d_edit default
+d_read private 
+
+pictures_feature on
+
+creation
+date_epoch [% creation.date_epoch %]
+date       [% creation.date %]
+[% IF creation_email -%]
+email      [% creation_email %]
+[% END -%]
+
+ttl	360
