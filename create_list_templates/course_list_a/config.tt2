@@ -10,35 +10,24 @@ visibility noconceal
 
 # users cannot subscribe/unsubscribe, list owner can subscribe user
 subscribe owner
+
 unsubscribe closed
-invite owner # note here!!
+
+invite owner
+
 add owner
+
 del closed
 
 available_user_options
-reception	mail,txt,html
+  reception	mail,txt,html
 
 reply_to_header
-value sender
-apply respect
+  value sender
+  apply respect
 
-[% FOREACH o = owner -%]
-owner
-  email [% o.email %]
-  profile privileged
-  [% IF o.gecos -%]
-  gecos [% o.gecos %]
-  [% END -%]
-
-[% END -%]
-
-[% IF owner_include -%]
 owner_include
   source [% owner_include.source %]
-  profile normal
-
-[% END -%]
-
 
 [% IF sql %]
 include_sql_query
@@ -50,7 +39,6 @@ include_sql_query
   sql_query [% sql.query %]
 
 [% END %]
-
 
 send course_announcement_list
 
